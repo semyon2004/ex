@@ -1,0 +1,564 @@
+/* Общие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+/* Стили для панели администратора */
+.admin-panel {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+}
+
+.admin-info {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #34495e;
+}
+
+.alert {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.error {
+    background: #ffe6e6;
+    color: #d63031;
+}
+
+.success {
+    background: #e6ffe6;
+    color: #00b894;
+}
+
+/* Стили для форм */
+.form-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background: #f0f4f8;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-form .form-group {
+    margin-bottom: 15px;
+}
+
+.user-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.user-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.user-form input:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+/* Стили для кнопок */
+.btn-add, .btn-unblock, .btn-block, .btn-edit, .btn-save {
+    background: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.btn-add:hover, .btn-unblock:hover, .btn-block:hover, .btn-edit:hover, .btn-save:hover {
+    background: #2980b9;
+}
+
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+tr:hover {
+    background: #f8f9fa;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+}
+
+/* Стили для ссылки выхода */
+.logout-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.logout-link:hover {
+    background: #c0392b;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .admin-panel {
+        padding: 15px;
+    }
+    
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    th, td {
+        padding: 8px 10px;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    button {
+        padding: 10px;
+    }
+}
+
+/* Стили для кнопок блокировки/разблокировки */
+.btn-unblock, .btn-block {
+    color: white;
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-unblock {
+    background: #27ae60;
+}
+
+.btn-block {
+    background: #e74c3c;
+}
+
+.btn-unblock:hover {
+    background: #219653;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn-block:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Анимация для кнопок */
+.btn-unblock, .btn-block {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-unblock:after, .btn-block:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255,255,255,.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.btn-unblock:focus:not(:active):after, 
+.btn-block:focus:not(:active):after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+/* Статус пользователя */
+td:nth-child(4) {
+    font-weight: 500;
+}
+
+td:nth-child(4):contains('Активен') {
+    color: #27ae60;
+}
+
+td:nth-child(4):contains('Заблокирован') {
+    color: #e74c3c;
+}
+
+/* Дополнительные стили для панели администратора */
+.admin-panel p {
+    color: #34495e;
+    margin-bottom: 15px;
+}
+
+.admin-info {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border-left: 4px solid #3498db;
+}
+
+/* Статусы пользователей */
+.status-active {
+    color: #27ae60;
+    font-weight: 500;
+}
+
+.status-blocked {
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+/* Контейнер таблицы */
+.table-container {
+    margin: 20px -30px;
+    overflow-x: auto;
+    padding: 0 30px;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error, .success {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Улучшения для таблицы */
+table thead th {
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    box-shadow: 0 1px 0 #ddd;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Стили для четных строк таблицы */
+tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+tr:hover {
+    background: #f1f3f5;
+}
+
+/* Улучшенные стили для кнопок */
+button[name="unblock_user"] {
+    background: #27ae60;
+    color: white;
+    padding: 8px 15px;
+    font-size: 13px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+button[name="unblock_user"]:hover {
+    background: #219a52;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Стили для формы добавления пользователя */
+.add-user-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #27ae60;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn-add {
+    background: #27ae60;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover {
+    background: #219a52;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Стили для кнопок действий в таблице */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-edit {
+    background: #f39c12;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.btn-edit:hover {
+    background: #d68910;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #2c3e50;
+}
+
+.btn-save {
+    background: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-save:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        margin: 20px;
+        width: auto;
+    }
+    
+    .add-user-form {
+        padding: 15px;
+    }
+}
+
+/* Общие стили для страницы авторизации */
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Занимает всю высоту экрана */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.auth-container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Ширина формы */
+    text-align: center; /* Центрирование текста */
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2c3e50;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+button {
+    background: #3498db;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+    width: 100%; /* Кнопка занимает всю ширину */
+}
+
+button:hover {
+    background: #2980b9;
+}
